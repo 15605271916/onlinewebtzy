@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>个人课程管理</title>
+		<link href="../css/bootstrap.css" rel="stylesheet" />
+		<link href="../css/my.css" rel="stylesheet" />
+		<script src="../js/jquery-1.10.2.js"></script>
+		<script src="../js/bootstrap.js"></script>
+		<script src="../js/my.js"></script>
+		<script>
+			$(function() {
+				var userInfo = getUserInfo();
+				$("#name2").text(userInfo.get("name"));
+				var myApplyCourseListVO = getMyApplyCourse();
+				//渲染页面
+				var trs = ``;
+				for (var myApplyCourseVO of myApplyCourseListVO) {
+					trs += `
+					<tr>
+						<td><img src="../img/${myApplyCourseVO.img}" /></td>
+						<td>${myApplyCourseVO.name}</td>
+						<td>`;
+					if (myApplyCourseVO.flag == "等待审核") {
+						trs += `<label class="label label-warning">`;
+					} else if (myApplyCourseVO.flag == "同意学习") {
+						trs += `<label class="label label-success">`;
+					} else if (myApplyCourseVO.flag == "拒绝学习") {
+						trs += `<label class="label label-danger">`;
+					}
+					trs += `${myApplyCourseVO.flag}</label></td>
+						<td>`;
+					if (myApplyCourseVO.flag == "等待审核") {
+						trs += `<a href="javascript:void(0)" onclick = "del(this)">取消</a>`;
+					}
+					trs += `</td>
+					</tr>
+					`;
+				}
+				$("#tb tbody").html(trs);
+			});
+
+			function del(obj) {
+				//获取要取消申请的课程名
+				var tr = obj.parentNode.parentNode;
+				var name = tr.children[1].innerHTML;
+				// alert(name);
+				var user = document.cookie.split("=")[1];
+				user = JSON.parse(user);
+				var account = user.account;
+				var courseList = localStorage.getItem("courseList");
+				courseList = JSON.parse(courseList);
+				var id = '';
+				if (confirm("确定要取消申请此课程吗?")) {
+					for (var i = 0; i < courseList.length; i++) {
+						if (courseList[i].name == name) {
+							id = courseList[i].id;
+							break;
+						}
+					}
+					//拿到了要删除的课程的id
+					// alert(id)
+					//该用户所有申请的课程
+					var course = localStorage.getItem("userApply");
+					course = JSON.parse(course);
+					$("#md2").modal("show");
+					// alert(course[user.account])
+					for (var i = 0; i < course[user.account].length; i++) {
+						if (course[user.account][i].id == id) {
+							if (course[user.account].length != 1) {
+								course[user.account].splice(i, 1);
+								break;
+							} else {
+								delete course[user.account];
+								break;
+							}
+						}
+					}
+					// alert(course)
+					//最后存值
+					localStorage.setItem("userApply", JSON.stringify(course));
+					location.reload();
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+						data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">
+						<img src="../img/1.png" class="logo" />
+					</a>
+				</div>
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<span class="navbar-text">个人中心后台管理</span>
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="javascript:void(0)"> <span class="glyphicon glyphicon-user"></span> &nbsp;欢 迎：
+								<span id="name2" class="loginName"></span></a></li>
+						<li>
+							<a href="../index.html"><span class="glyphicon glyphicon-home"></span> &nbsp; 返回首页</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3">
+					<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+						<div class="panel panel-primary">
+							<div class="panel-heading" role="tab" id="headingOne">
+								<h4 class="panel-title">
+									<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+										aria-expanded="true" aria-controls="collapseOne">
+										<span class="glyphicon glyphicon-info-sign"></span> &nbsp; 个人信息
+									</a>
+								</h4>
+							</div>
+							<div id="collapseOne" class="panel-collapse collapse" role="tabpanel"
+								aria-labelledby="headingOne">
+
+								<ul class="list-group">
+									<li class="list-group-item"><a href="index.html">用户个人信息</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="panel panel-primary">
+							<div class="panel-heading" role="tab" id="headingTwo">
+								<h4 class="panel-title">
+									<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+										href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+										<span class="glyphicon glyphicon-edit"></span> &nbsp; 用户操作
+									</a>
+								</h4>
+							</div>
+							<div id="collapseTwo" class="panel-collapse collapse " role="tabpanel"
+								aria-labelledby="headingTwo">
+								<ul class="list-group">
+									<li class="list-group-item"><a href="edit.html">用户信息编辑</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="panel panel-primary">
+							<div class="panel-heading" role="tab" id="headingThree">
+								<h4 class="panel-title">
+									<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+										href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+										<span class="glyphicon glyphicon-th-large"></span> &nbsp; 课程管理
+									</a>
+								</h4>
+							</div>
+							<div id="collapseThree" class="panel-collapse collapse in" role="tabpanel"
+								aria-labelledby="headingThree">
+
+								<ul class="list-group">
+									<li class="list-group-item"><a href="">个人课程管理</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-9">
+					<div class="panel panel-primary">
+						<div class="panel-heading">个人课程管理</div>
+						<table id="tb" class="table table-bordered applyTb">
+							<thead>
+								<tr>
+									<th>课程</th>
+									<th>课程名</th>
+									<th>状态</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>
+						</table>
+					</div>
+					<ul class="pagination pull-right">
+						<li> <a href="">首页</a></li>
+						<li> <a href="">上一页</a></li>
+						<li class="active"> <a href="">1</a></li>
+						<li> <a href="">2</a></li>
+						<li> <a href="">3</a></li>
+						<li class="disabled"> <a href="">下一页</a></li>
+						<li> <a href="">尾页</a></li>
+					</ul>
+				</div>
+			</div>
+			</div>
+	</body>
+</html>

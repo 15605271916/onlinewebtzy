@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>个人中心首页面</title>
+		<link href="../css/bootstrap.css" rel="stylesheet" />
+		<link href="../css/my.css" rel="stylesheet" />
+		<script src="../js/jquery-1.10.2.js"></script>
+		<script src="../js/bootstrap.js"></script>
+		<script src="../js/my.js"></script>
+		<script>
+			$(function() {
+				//获取数据
+				var userInfo = getUserInfo();
+				//渲染页面
+				$("#account").text(userInfo.get("account"));
+				$("#name").text(userInfo.get("name"));
+				$("#name2").text(userInfo.get("name"));
+				$("#sex").text(userInfo.get("sex"));
+				$("#applyNum").text(userInfo.get("applyNum"));
+				$("#waitNum").text(userInfo.get("waitNum"));
+				$("#okNum").text(userInfo.get("okNum"));
+				$("#noNum").text(userInfo.get("noNum"));
+			});
+		</script>
+	</head>
+	<body>
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+						data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">
+						<img src="../img/1.png" class="logo" />
+					</a>
+				</div>
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<span class="navbar-text">个人中心后台管理</span>
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="javascript:void(0)"> <span class="glyphicon glyphicon-user"></span> &nbsp;欢 迎：
+								<span id="name2" class="loginName"></span></a></li>
+						<li>
+							<a href="../index.html"><span class="glyphicon glyphicon-home"></span> &nbsp; 返回首页</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3">
+					<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+						<div class="panel panel-primary">
+							<div class="panel-heading" role="tab" id="headingOne">
+								<h4 class="panel-title">
+									<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+										aria-expanded="true" aria-controls="collapseOne">
+										<span class="glyphicon glyphicon-info-sign"></span> &nbsp; 个人信息
+									</a>
+								</h4>
+							</div>
+							<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
+								aria-labelledby="headingOne">
+
+								<ul class="list-group">
+									<li class="list-group-item"><a href="index.html">用户个人信息</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="panel panel-primary">
+							<div class="panel-heading" role="tab" id="headingTwo">
+								<h4 class="panel-title">
+									<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+										href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+										<span class="glyphicon glyphicon-edit"></span> &nbsp; 用户操作
+									</a>
+								</h4>
+							</div>
+							<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel"
+								aria-labelledby="headingTwo">
+								<ul class="list-group">
+									<li class="list-group-item"><a href="edit.html">用户信息编辑</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="panel panel-primary">
+							<div class="panel-heading" role="tab" id="headingThree">
+								<h4 class="panel-title">
+									<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+										href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+										<span class="glyphicon glyphicon-th-large"></span> &nbsp; 课程管理
+									</a>
+								</h4>
+							</div>
+							<div id="collapseThree" class="panel-collapse collapse" role="tabpanel"
+								aria-labelledby="headingThree">
+
+								<ul class="list-group">
+									<li class="list-group-item"><a href="applyCourse.html">个人课程管理</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-9">
+					<div class="panel panel-primary">
+						<div class="panel-heading">用户个人信息</div>
+						<ul class="list-group">
+							<li class="list-group-item">账号：<span id="account" class="account"></span></li>
+							<li class="list-group-item">姓名：<span id="name"></span></li>
+							<li class="list-group-item">性别：<span id="sex"></span></li>
+						</ul>
+						<div class="panel-heading">用户课程信息</div>
+						<ul class="list-group">
+							<li class="list-group-item">已申请的课程：<span id="applyNum" class="badge"></span></li>
+							<li class="list-group-item">待审核的课程：<span id="waitNum" class="badge"></span></li>
+							<li class="list-group-item">已通过的课程：<span id="okNum" class="badge"></span></li>
+							<li class="list-group-item">被拒绝的课程：<span id="noNum" class="badge"></span></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

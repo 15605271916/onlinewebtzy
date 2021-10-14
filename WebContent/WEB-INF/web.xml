@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+	<display-name>onlinewebtzy</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+
+	<!-- 编码过滤 -->
+	<filter>
+		<filter-name>encode</filter-name>
+		<filter-class>com.tzy.onlineweb.filter.EncodeFilter</filter-class>
+		<init-param>
+			<param-name>encode</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encode</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+
+
+	<!-- 首页 -->
+	<servlet>
+		<servlet-name>indexAction</servlet-name>
+		<servlet-class>com.tzy.onlineweb.action.indexAction</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>indexAction</servlet-name>
+		<url-pattern>/index.do</url-pattern>
+	</servlet-mapping>
+
+
+	<!-- 课程详细 -->
+	<servlet>
+		<servlet-name>descAction</servlet-name>
+		<servlet-class>com.tzy.onlineweb.action.descAction</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>descAction</servlet-name>
+		<url-pattern>/desc.do</url-pattern>
+	</servlet-mapping>
+
+
+	<!-- 课程搜索 -->
+	<servlet>
+		<servlet-name>searchAction</servlet-name>
+		<servlet-class>com.tzy.onlineweb.action.searchAction</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>searchAction</servlet-name>
+		<url-pattern>/search.do</url-pattern>
+	</servlet-mapping>
+
+
+	<!-- 注册页面 -->
+	<servlet>
+		<servlet-name>regUIAction</servlet-name>
+		<servlet-class>com.tzy.onlineweb.action.regUIAction</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>regUIAction</servlet-name>
+		<url-pattern>/regUI.do</url-pattern>
+	</servlet-mapping>
+	
+	
+	<!-- 注册 -->
+	<servlet>
+		<servlet-name>regAction</servlet-name>
+		<servlet-class>com.tzy.onlineweb.action.regAction</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>regAction</servlet-name>
+		<url-pattern>/reg.do</url-pattern>
+	</servlet-mapping>
+	
+
+
+	<!-- 登录页面 -->
+	<servlet>
+		<servlet-name>loginUIAction</servlet-name>
+		<servlet-class>com.tzy.onlineweb.action.loginUIAction</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>loginUIAction</servlet-name>
+		<url-pattern>/loginUI.do</url-pattern>
+	</servlet-mapping>
+	
+	
+	<!-- 登录 -->
+	<servlet>
+		<servlet-name>loginAction</servlet-name>
+		<servlet-class>com.tzy.onlineweb.action.loginAction</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>loginAction</servlet-name>
+		<url-pattern>/login.do</url-pattern>
+	</servlet-mapping>
+	
+	
+	<!-- 申请 -->
+	<servlet>
+		<servlet-name>applyAction</servlet-name>
+		<servlet-class>com.tzy.onlineweb.action.applyAction</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>applyAction</servlet-name>
+		<url-pattern>/apply.do</url-pattern>
+	</servlet-mapping>
+
+
+	<!-- 退出登录 -->
+	<servlet>
+		<servlet-name>logoutAction</servlet-name>
+		<servlet-class>com.tzy.onlineweb.action.logoutAction</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>logoutAction</servlet-name>
+		<url-pattern>/logout.do</url-pattern>
+	</servlet-mapping>
+
+
+	
+	
+	
+
+
+
+
+
+</web-app>
